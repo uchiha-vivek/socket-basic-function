@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat-Messaging</title>
+    
+</head>
+<body>
+    <h1>My name is vivek sharma</h1>
+    <form class="formvar"> 
+    <input type="text" id='message' placeholder="enter mesaage">
+    <button id="sendButton">send</button>
+    <div id="messages"></div>
+    <!-- <button onClick="createConnection()">    create a new connection</button> -->
+</form>
+    
+    <script src="/socket.io/socket.io.js">
+
+
+
+    </script>
+    <script>
+         
+        const socket = io()
+        const sendButton= document.getElementById('sendButton')
+        const messageInput= document.getElementById('message')
+        const allMessages=document.getElementById('messages')
+
+        socket.on('message', (message) =>{
+            const p= document.createElement('p');
+            p.innerText = message;
+            allMessages.appendChild(p)
+        })
+
+        sendButton.addEventListener('click', e=>{
+            const message = messageInput.value;
+            console.log(message)
+            socket.emit('user-message', message)
+        })
+    </script>
+<!-- 
+    <script>
+        function createConnection(){
+            const socket =io()
+        }
+    </script> -->
+</body>
+</html>
